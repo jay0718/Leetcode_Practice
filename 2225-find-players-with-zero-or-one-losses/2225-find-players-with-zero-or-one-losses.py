@@ -1,18 +1,24 @@
-from collections import defaultdict
-class Solution:
-    def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
-        dct=defaultdict(lambda :[0,0])
-        for p1,p2 in matches:
-            dct[p1][0]+=1
-            dct[p1][1]+=1
-            dct[p2][0]+=1
-        wonAll=[]
-        lossOne=[]
-        for i in dct:
-            if dct[i][0]==dct[i][1]:
-                wonAll.append(i)
-            elif dct[i][0]-dct[i][1]==1:
-                lossOne.append(i)
-        wonAll.sort()
-        lossOne.sort()
-        return [wonAll,lossOne]
+class Solution(object):
+    def findWinners(self, matches):
+        dic={}
+        for x in matches:
+            if x[-1] not in dic:
+                dic[x[-1]]=1
+            else:
+                dic[x[-1]]+=1
+        temp=set()
+        for x in matches:
+            if x[0] not in dic:
+                temp.add(x[0])
+        temp_2=[]
+        for x in dic:
+            if dic[x]==1:
+                temp_2.append(x)
+        temp=list(temp)
+        res=[]
+        temp.sort()
+        temp_2.sort()
+        res.append(temp)
+        res.append(temp_2)
+        return res
+        
